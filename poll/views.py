@@ -1,4 +1,4 @@
-from django.shortcuts import render, Http404
+from django.shortcuts import render, Http404, get_object_or_404
 from django.http import HttpResponse
 from .models import Questions, Answers
 # Create your views here.
@@ -16,6 +16,12 @@ def detail(request, question_id):
         raise Http404('question is not found')
     return render(request, "poll/detail.html", {"q": question})
 
+def detail2(request, question_id):
+    try:
+        question = get_object_or_404(Questions, pk=question_id)
+    except Questions.DoesNotExist:
+        raise Http404("Question not found!")
+    return render(request, 'poll/detail.html', {"q": question})
 
 def results(request, question_id):
     response = "You're looking at the results of question %s."

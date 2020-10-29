@@ -7,6 +7,13 @@
 <body>
 {% if q%}
 <p>{{q.q_text}}</p>
+<ul>
+    {% for answer in q.answers_set.all %}
+    <li>
+        {{ answer.answer }}
+    </li>
+    {% endfor %}
+</ul>
 {% endif %}
 </body>
 </html>

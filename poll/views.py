@@ -6,19 +6,20 @@ from .models import Questions, Answers
 
 def index(request):
     latest_question_list = Questions.objects.order_by('-publication_date')[:5]
-    return render(request, 'poll/index.html', {'latest_question_list': latest_question_list})
+    fuckyou = "fuckyou"
+    return render(request, 'poll/index.html', {'latest_question_list': latest_question_list, "fuckyou":fuckyou})
 
 
 def detail(request, question_id):
     try:
-        question = Questions.objects.get(pk=question_id)
+        question = Questions.objects.get(q_text=question_id)
     except Questions.DoesNotExist:
         raise Http404('question is not found')
     return render(request, "poll/detail.html", {"q": question})
 
-def detail2(request, question_id):
+def detail2(request, qid):
     try:
-        question = get_object_or_404(Questions, pk=question_id)
+        question = get_object_or_404(Questions, pk=qid)
     except Questions.DoesNotExist:
         raise Http404("Question not found!")
     return render(request, 'poll/detail.html', {"q": question})

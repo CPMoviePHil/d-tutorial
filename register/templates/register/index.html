@@ -10,11 +10,12 @@
 <body>
 <div class="login-page">
   <div class="form">
-    <form class="register-form">
-      <input type="text" placeholder="帳號"/>
-      <input type="password" placeholder="密碼"/>
-      <input type="text" placeholder="電子信箱"/>
-      <button>註冊</button>
+    <form action="{% url 'register:register' %}" method="post" class="register-form">
+        {% csrf_token %}
+      <input name="account" type="text" placeholder="帳號"/>
+      <input name="password" type="password" placeholder="密碼"/>
+      <input name="email" type="email" placeholder="電子信箱"/>
+      <button name="submit" type="submit">註冊</button>
       <p class="message">已有帳號?<a href="#">登入</a></p>
     </form>
   </div>

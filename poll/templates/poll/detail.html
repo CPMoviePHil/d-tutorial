@@ -5,15 +5,17 @@
     <title>Title</title>
 </head>
 <body>
-{% if q%}
-<p>{{q.q_text}}</p>
-<ul>
-    {% for answer in q.answers_set.all %}
-    <li>
-        {{ answer.answer }}
-    </li>
-    {% endfor %}
-</ul>
-{% endif %}
+<h1>{{ q.q_text }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'for_poll_app:vote' q.id %}" method="post">
+{% csrf_token %}
+{% for answer in q.answers_set.all %}
+    <input type="radio" name="answer" id="answer{{ forloop.counter }}" value="{{ answer.id }}">
+    <label for="answer{{ forloop.counter }}">{{ answer.answer }}</label><br>
+{% endfor %}
+<input type="submit" value="Vote">
+</form>
 </body>
 </html>
